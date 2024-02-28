@@ -1472,6 +1472,7 @@ if (typeof GAME === 'undefined') { } else {
             }
         }
         const kws = new kwsv3();
+        GAME.emitOrder({a:57,type:0,type2:0,page:1});
         GAME.komunikat2 = function (kom) {
             if (this.koms.indexOf(kom) == -1) {
                 if (this.komc > 50) this.komc = 40;
@@ -1498,7 +1499,10 @@ if (typeof GAME === 'undefined') { } else {
                     }, 400);
                 }, 1800);
             }
-            kws.handleTournamentsSign();
+            GAME.emitOrder({a:57,type:0,type2:0,page:1});
+            setTimeout(() => {
+                kws.handleTournamentsSign();
+            }, 500);
             setTimeout(() => {
                 if (GAME.emp_wars.length < 3 && GAME.quick_opts.empire) {
                     setTimeout(() => {
