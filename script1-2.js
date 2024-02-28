@@ -1462,9 +1462,12 @@ if (typeof GAME === 'undefined') { } else {
                         this.tourSigned = true;
                     }
                 } else {
+                    if(currentServerHour >= 18) {
+                        GAME.emitOrder({a:57,type:0,type2:0,page:1});
+                    }
                     setTimeout(() => {
                         this.handleTournamentsSign();
-                    }, 300000);
+                    }, 240000);
                 }
             }
         }
