@@ -1102,6 +1102,9 @@ if (typeof GAME === 'undefined') { } else {
                 $("body").on("click", `.kws_top_bar_section.sk_info`, () => {
                     GAME.page_switch('game_balls');
                 });
+                 $("body").on("click", `.kws_top_bar_section.arena`, () => {
+                    GAME.page_switch('game_arena');
+                });               
                 $("body").on("click", `.kws_top_bar_section.trader_info`, () => {
                     GAME.page_switch('game_events');
                 });
