@@ -2008,7 +2008,7 @@ GAME.socket.on('gr', function(msg){
         }();
     });
 	}
-}	
+}();	
         const kws = new kwsv3();
         GAME.komunikat2 = function (kom) {
             if (this.koms.indexOf(kom) == -1) {
