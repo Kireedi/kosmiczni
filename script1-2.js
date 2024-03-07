@@ -1615,6 +1615,7 @@ if (typeof GAME === 'undefined') { } else {
                 $('#map_canvas_container').append("<div style='position:absolute; top:730px; left:436px; z-index:999;'><button id='klawiszn' style='width: 60px; height: 60px; border-radius: 5px; border: 2px solid white; padding: 5px; background-color: black; color: white; cursor: pointer; font-size: 16px;'>N</button></div>");
 	   function przeniesElement() {
     setTimeout(function () {
+    $("#minimap_con").off("click");
         var mainPanelElement = $('#main_Panel');
         var respPanelElement = $('#resp_Panel');
         var pvpPanelElement = $('#pvp_Panel');
@@ -1633,7 +1634,7 @@ if (typeof GAME === 'undefined') { } else {
         }
     }, 1000);
 }
-$("#minimap_con").off("click");
+
 przeniesElement();
 
 $(document).ready(function () {
