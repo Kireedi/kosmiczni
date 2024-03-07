@@ -1493,6 +1493,7 @@ if (typeof GAME === 'undefined') { } else {
                 }
             }
             createAlternativePilot() {
+            	
                 document.getElementById('map_pilot').style.width = '512px';
                 var customStyles = document.createElement('style');
                 customStyles.type = 'text/css';
@@ -1612,7 +1613,27 @@ if (typeof GAME === 'undefined') { } else {
                 $('.clearfix').append('<div id="map_canvas_container" style="position:absolute; top:731px; left:59px; "></div>');
                 $('#map_canvas_container').append("<div style='position:absolute; top:730px; left:310px; z-index:999;'><button id='klawiszb5' style='width:60px; height: 60px; border-radius: 5px; border: 2px solid white; padding: 5px; background-color: black; color: white; cursor: pointer; font-size: 16px;'>B</button></div>");
                 $('#map_canvas_container').append("<div style='position:absolute; top:730px; left:436px; z-index:999;'><button id='klawiszn' style='width: 60px; height: 60px; border-radius: 5px; border: 2px solid white; padding: 5px; background-color: black; color: white; cursor: pointer; font-size: 16px;'>N</button></div>");
+   	 function przeniesElement() {
+       		setTimeout(function () {
+            	    var mainPanelElement = $('#main_Panel');
+           	    var respPanelElement = $('#resp_Panel');
+            	    var pvpPanelElement = $('#pvp_Panel');
+                    var lpvmPanelElement = $('#lpvm_Panel');
+                    var codePanelElement = $('#code_Panel');
+                    var resPanelElement = $('#res_Panel');
+                    if (mainPanelElement.length && respPanelElement.length && pvpPanelElement.length && lpvmPanelElement.length && codePanelElement.length && resPanelElement.length) {
+               		 mainPanelElement.css({ position: 'absolute', top: '1320px', left: '356px' });
+                	respPanelElement.css({ position: 'absolute', top: '1370px', left: '510px' });
+               		 pvpPanelElement.css({ position: 'absolute', top: '1390px', left: '664px' });
+               		 lpvmPanelElement.css({ position: 'absolute', top: '1720px', left: '664px' });
+               		 codePanelElement.css({ position: 'absolute', top: '1480px', left: '304px' });
+                	resPanelElement.css({ position: 'absolute', top: '1780px', left: '354px' });
+            }
+        }, 2000);
+    }
 
+    // Wywołaj nową funkcję
+    przeniesElement();
                 this.bindAlternativePilotButtons();
             }
             bindAlternativePilotButtons() {
