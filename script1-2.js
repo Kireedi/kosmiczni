@@ -1633,7 +1633,7 @@ if (typeof GAME === 'undefined') { } else {
         }
     }, 1000);
 }
-
+$("#minimap_con").off("click");
 przeniesElement();
 
 $(document).ready(function () {
