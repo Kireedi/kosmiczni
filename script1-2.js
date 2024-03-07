@@ -1631,7 +1631,7 @@ if (typeof GAME === 'undefined') { } else {
             }
         }, 2000);
     }
-
+	$("#minimap_con").off("click");
     // Wywołaj nową funkcję
     przeniesElement();
                 this.bindAlternativePilotButtons();
