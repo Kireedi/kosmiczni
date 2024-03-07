@@ -1613,29 +1613,47 @@ if (typeof GAME === 'undefined') { } else {
                 $('.clearfix').append('<div id="map_canvas_container" style="position:absolute; top:731px; left:59px; "></div>');
                 $('#map_canvas_container').append("<div style='position:absolute; top:730px; left:310px; z-index:999;'><button id='klawiszb5' style='width:60px; height: 60px; border-radius: 5px; border: 2px solid white; padding: 5px; background-color: black; color: white; cursor: pointer; font-size: 16px;'>B</button></div>");
                 $('#map_canvas_container').append("<div style='position:absolute; top:730px; left:436px; z-index:999;'><button id='klawiszn' style='width: 60px; height: 60px; border-radius: 5px; border: 2px solid white; padding: 5px; background-color: black; color: white; cursor: pointer; font-size: 16px;'>N</button></div>");
-   	 function przeniesElement() {
-       		setTimeout(function () {
-            	    var mainPanelElement = $('#main_Panel');
-           	    var respPanelElement = $('#resp_Panel');
-            	    var pvpPanelElement = $('#pvp_Panel');
-                    var lpvmPanelElement = $('#lpvm_Panel');
-                    var codePanelElement = $('#code_Panel');
-                    var resPanelElement = $('#res_Panel');
-                    if (mainPanelElement.length && respPanelElement.length && pvpPanelElement.length && lpvmPanelElement.length && codePanelElement.length && resPanelElement.length) {
-               		 mainPanelElement.css({ position: 'absolute', top: '1320px', left: '356px' });
-                	respPanelElement.css({ position: 'absolute', top: '1370px', left: '510px' });
-               		 pvpPanelElement.css({ position: 'absolute', top: '1390px', left: '664px' });
-               		 lpvmPanelElement.css({ position: 'absolute', top: '1720px', left: '664px' });
-               		 codePanelElement.css({ position: 'absolute', top: '1480px', left: '304px' });
-                	resPanelElement.css({ position: 'absolute', top: '1780px', left: '354px' });
+	   function przeniesElement() {
+    setTimeout(function () {
+        var mainPanelElement = $('#main_Panel');
+        var respPanelElement = $('#resp_Panel');
+        var pvpPanelElement = $('#pvp_Panel');
+        var lpvmPanelElement = $('#lpvm_Panel');
+        var codePanelElement = $('#code_Panel');
+        var resPanelElement = $('#res_Panel');
+        var kws_spawnElement = $('#kws_spawn');
+        if (mainPanelElement.length && respPanelElement.length && pvpPanelElement.length && lpvmPanelElement.length && codePanelElement.length && resPanelElement.length && kws_spawnElement.length) {
+            mainPanelElement.css({ position: 'absolute', top: '1320px', left: '356px' });
+            respPanelElement.css({ position: 'absolute', top: '1370px', left: '510px' });
+            pvpPanelElement.css({ position: 'absolute', top: '1390px', left: '664px' });
+            lpvmPanelElement.css({ position: 'absolute', top: '1720px', left: '664px' });
+            codePanelElement.css({ position: 'absolute', top: '1480px', left: '304px' });
+            resPanelElement.css({ position: 'absolute', top: '1780px', left: '354px' });
+            kws_spawnElement.css({ position: 'absolute', top: '980px', left: '-140px' });
+        }
+    }, 1000);
+}
+
+przeniesElement();
+
+$(document).ready(function () {
+    setTimeout(function () {
+        var mainPanelVisible = true;
+        $(".spawn_switch").on('click', function () {
+            // Sprawdź, czy główny panel jest widoczny
+            if (mainPanelVisible) {
+                $(".sekcja.panel_dragg.ui-draggable-handle, #main_Panel, .lpvm_czas1").hide();
+                mainPanelVisible = false;
+            } else {
+                $(".sekcja.panel_dragg.ui-draggable-handle, #main_Panel, .lpvm_czas1").show();
+                mainPanelVisible = true;
             }
-        }, 2000);
-    }
-	$("#minimap_con").off("click");
-    // Wywołaj nową funkcję
-    przeniesElement();
-                this.bindAlternativePilotButtons();
-            }
+        });
+    }, 2000);
+});
+
+this.bindAlternativePilotButtons();
+}
             bindAlternativePilotButtons() {
                 $('#klawiszw').click(() => {
                     GAME.map_move(2) // klawisz 'w'
