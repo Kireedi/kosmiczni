@@ -943,8 +943,8 @@ if (typeof GAME === 'undefined') {} else {
                 x: 1,
                 y: 1,
                 war: false,
-                buff_imp: true,
-                buff_clan: true
+                buff_imp: false,
+                buff_clan: false
             };
             PVP.checkkkk = () => {
                 let imp = $("#leader_player").find("[data-option=show_player]").attr("data-char_id");
@@ -1586,8 +1586,8 @@ if (typeof GAME === 'undefined') {} else {
                 b16: false,
                 b17: false,
                 b18: false,
-                buff_imp: true,
-                buff_clan: true,
+                buff_imp: false,
+                buff_clan: false,
                 loc: GAME.char_data.loc
             };
             RESP.check = () => {
