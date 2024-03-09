@@ -247,6 +247,122 @@ document.head.appendChild(style);
     .catch(error => {
         console.error(error.message);
     });
+    var ghButtonIntervalId;
+var ghButtonExecuted = false;
+
+function sprawdzIWykonajGHButton() {
+    ghButtonIntervalId = setInterval(function() {
+        var pvmPanel = document.getElementById('resp_Panel');
+        if (pvmPanel) {
+            clearInterval(ghButtonIntervalId);
+            wykonajKodGHButton(pvmPanel);
+        }
+    }, 1000);
+}
+
+function wykonajKodGHButton(panel) {
+    if (!ghButtonExecuted) {
+        var ghButton = panel.querySelector('.resp_button.resp_resp');
+        if (ghButton) {
+            var onoffDiv2 = document.createElement("div");
+            onoffDiv2.id = "onoff";
+            onoffDiv2.classList.add("ui-draggable");
+
+            var startTimeInput2 = document.createElement("input");
+            startTimeInput2.type = "text";
+            startTimeInput2.placeholder = "Godzina startu (HH mm)";
+            startTimeInput2.style.width = "120px";
+            startTimeInput2.style.marginLeft = "5px";
+            startTimeInput2.style.background = "grey";
+            startTimeInput2.style.textAlign = "center";
+            startTimeInput2.style.color = "white";
+
+            var endTimeInput2 = document.createElement("input");
+            endTimeInput2.type = "text";
+            endTimeInput2.placeholder = "Godzina wyłączenia (HH mm)";
+            endTimeInput2.style.width = "120px";
+            endTimeInput2.style.marginLeft = "5px";
+            endTimeInput2.style.background = "grey";
+            endTimeInput2.style.textAlign = "center";
+            endTimeInput2.style.color = "white";
+
+            var onOffButton2 = document.createElement("button");
+            onOffButton2.textContent = "On";
+            onOffButton2.style.color = "#00ff00";
+            onOffButton2.style.backgroundColor = "black";
+            onOffButton2.style.border = "1px solid white";
+            onOffButton2.onclick = function() {
+                if (onOffButton2.textContent === "On") {
+                    var startTime = parseTime(startTimeInput2.value);
+                    var endTime = parseTime(endTimeInput2.value);
+                    if (!isNaN(startTime) && !isNaN(endTime)) {
+                        planujWlWyl(startTime, endTime);
+                        onOffButton2.textContent = "Off";
+                        onOffButton2.style.color = "red";
+                    } else {
+                        alert("Wprowadź poprawne godziny (HH mm)!");
+                    }
+                } else {
+                    clearInterval(intervalId);
+                    onOffButton2.textContent = "On";
+                    onOffButton2.style.color = "#00ff00";
+                }
+            };
+
+            onoffDiv2.appendChild(startTimeInput2);
+            onoffDiv2.appendChild(endTimeInput2);
+            onoffDiv2.appendChild(onOffButton2);
+
+            panel.appendChild(onoffDiv2);
+
+            var intervalId;
+
+            function parseTime(timeString) {
+                var timeArray = timeString.split(" ");
+                if (timeArray.length === 2) {
+                    var hours = parseInt(timeArray[0]);
+                    var minutes = parseInt(timeArray[1]);
+                    if (!isNaN(hours) && !isNaN(minutes)) {
+                        return hours * 60 + minutes;
+                    }
+                }
+                return NaN;
+            }
+
+            function planujWlWyl(startTime, endTime) {
+                var clickedAtStart = false;
+                var clickedAtEnd = false;
+                intervalId = setInterval(function() {
+                    var currentTime = new Date();
+                    var currentHours = currentTime.getHours();
+                    var currentMinutes = currentTime.getMinutes();
+                    var currentTotalMinutes = currentHours * 60 + currentMinutes;
+                    if (currentTotalMinutes === startTime && !clickedAtStart) {
+                        var codeButton = panel.querySelector('.resp_button.resp_resp');
+                        if (codeButton) {
+                            codeButton.click();
+                            clickedAtStart = true;
+                        }
+                    }
+                    if (currentTotalMinutes === endTime && !clickedAtEnd) {
+                        var codeButton = panel.querySelector('.resp_button.resp_resp');
+                        if (codeButton) {
+                            codeButton.click();
+                            clickedAtEnd = true;
+                            clearInterval(intervalId);
+                            onOffButton2.textContent = "On";
+                            onOffButton2.style.color = "#00ff00";
+                        }
+                    }
+                }, 1000);
+            }
+        }
+    }
+}
+
+// Wywołanie funkcji
+sprawdzIWykonajGHButton();
+
     	$(document).bind('keydown', '`', function(){
         if(JQS.chm.is(":focus") == false){
            GAME.emitOrder({a:39,type:32});
