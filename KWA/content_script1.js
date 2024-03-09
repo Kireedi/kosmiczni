@@ -487,7 +487,7 @@ $('.newBtn.autozbieranieSK').css({
 
 $('body').on('click', '.autozbieranieSK', () => {
 var SK = {
-	Locations:[647, 648, 649, 651, 656, 658, 649, 660, 663, 664, 665, 666, 667, 668, 669, 670, 671, 690, 691, 692, 698],
+	Locations:[982, 981, 980, 983, 984, 985, 987, 986, 988, 989, 990, 991, 992, 993, 994, 995, 996, 997, 998, 999, 1000],
     Stop: true,
     Matrix: [],
     Map: 0,
@@ -528,7 +528,7 @@ const steal_sk = setInterval(()=>{
     if (can_start == 0 && !SK.isStarted) {
         SK.isStarted = true;
         SK.Stop = false;
-        SK.Locations = [134, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 157, 158];
+        SK.Locations = [982, 981, 980, 983, 984, 985, 987, 986, 988, 989, 990, 991, 992, 993, 994, 995, 996, 997, 998, 999, 1000];
         SK.Start();
     }
 	let ile_mam_sk = $(`#mdbp_${GAME.char_data.reborn}`).find(`b[data-char_id="${GAME.char_data.id}"]`).length;
