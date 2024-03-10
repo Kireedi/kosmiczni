@@ -1,5 +1,32 @@
 var checked = false;
-BOT = {
+
+if (typeof GAME === 'undefined') { } else {
+    let Pog = setInterval(() => {
+        if (!GAME.pid) { } else {
+            clearInterval(Pog);
+            checked = true;
+        }
+    }, 50);
+
+    let Pgg = setInterval(() => {
+        clearInterval(Pgg);
+        for (var i in GAME) {
+            if (i.indexOf("socxxx") === 0 && i.lastIndexOf("ket") + 3 === i.length) {
+                GAME.socket = GAME[i];
+                break;
+            }
+        }
+        class kwsv3 {
+            constructor() {
+                this.isLogged((data) => {
+                    Object.defineProperty(GAME, 'pid', {
+                        writable: false
+                    });
+                    Object.defineProperty(GAME, 'login', {
+                        writable: false
+                    });
+                });
+                BOT = {
     chars: [],
     currentCharIndex: 0,
     timeout: 1000,
@@ -43,32 +70,6 @@ document.addEventListener('keydown', function (event) {
 
 BOT.GetChars();
 
-if (typeof GAME === 'undefined') { } else {
-    let Pog = setInterval(() => {
-        if (!GAME.pid) { } else {
-            clearInterval(Pog);
-            checked = true;
-        }
-    }, 50);
-
-    let Pgg = setInterval(() => {
-        clearInterval(Pgg);
-        for (var i in GAME) {
-            if (i.indexOf("socxxx") === 0 && i.lastIndexOf("ket") + 3 === i.length) {
-                GAME.socket = GAME[i];
-                break;
-            }
-        }
-        class kwsv3 {
-            constructor() {
-                this.isLogged((data) => {
-                    Object.defineProperty(GAME, 'pid', {
-                        writable: false
-                    });
-                    Object.defineProperty(GAME, 'login', {
-                        writable: false
-                    });
-                });
                 this.tourSigned = false;
                 this.firstTournamentPageLoaded = false;
                 this.settings = this.getSettings();
