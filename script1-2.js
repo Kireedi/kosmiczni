@@ -37,6 +37,64 @@ if (typeof GAME === 'undefined') { } else {
                 this.loadRiddles((data) => {
                     this.riddles = data;
                 });
+                window.addEventListener('load', function () {
+    // Definicje funkcji i obiektów
+
+    BOT = {
+        chars: [],
+        currentCharIndex: 0,
+        timeout: 1000,
+    }
+
+    GAME.emitOrder = (data) => GAME.socket.emit('ga', data);
+
+    BOT.LogIn = function () {
+        char_id = parseInt(this.chars[this.currentCharIndex]);
+        GAME.emitOrder({ a: 2, char_id: char_id });
+    }
+
+    BOT.switchToNextChar = function () {
+        if (this.currentCharIndex < this.chars.length - 1) {
+            this.currentCharIndex++;
+            this.LogIn();
+        } else {
+            console.error("Nie ma więcej postaci do przełączenia.");
+        }
+    }
+
+    BOT.switchToPreviousChar = function () {
+        if (this.currentCharIndex > 0) {
+            this.currentCharIndex--;
+            this.LogIn();
+        } else {
+            console.error("To jest pierwsza postać, nie można przełączyć się do poprzedniej.");
+        }
+    }
+
+    BOT.GetChars = function () {
+        for (i = 0; i < GAME.player_chars; i++) {
+            char = $("li[data-option=select_char]").eq(i);
+            BOT.chars.push(char.attr("data-char_id"));
+        }
+    };
+
+    // Uruchomienie kodu po 2 sekundach od załadowania strony
+
+    setTimeout(function () {
+        BOT.GetChars();
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === '.') {
+                event.preventDefault();
+                BOT.switchToNextChar();
+            } else if (event.key === ',') {
+                event.preventDefault();
+                BOT.switchToPreviousChar();
+            }
+        });
+    }, 2000);
+});
+
                 this.addToCSS(`.kom{background:url(/gfx/layout/tloPilot.png); background-size:cover; border-image:url(/gfx/layout/mapborder.png) 7 8 7 7 fill; border-style:solid; border-width:7px 8px 7px 7px; box-shadow:none;} .kom .close_kom b{background:url(/gfx/layout/tloPilot.png);} .exchange_win{max-height:500; height:auto;}`);
                 this.addToCSS(`#emp_list .petopt_btns .newBtn{margin:0px 3px 3px 0px;} .newBtn.do_all_instances{color:#e5d029;}`);
                 this.addToCSS(`#quick_bar{z-index:4;} .qlink.kws_active_icon{animation-name:kws_active_icon;animation-duration:1s;animation-iteration-count:infinite;}@keyframes kws_active_icon { 0% { filter: hue-rotate(168deg); } 50% { filter:hue-rotate(40deg); } 100% { filter: hue-rotate(168deg); } } .sideIcons{ width:29px; height:29px; left:-37px; background-size:contain; } .autoExpeCodes{background:#12121294; border:1px solid rgb(87, 87, 114); border-radius:5px 0px 0px 5px; position:absolute; top:-100px; left:-97px; padding:5px; display:none; color:#ffe500c7; user-select:none;} .manage_autoExpeditions:hover + .autoExpeCodes, .autoExpeCodes:hover{ display:flex; } .autoExpeCodes .newCheckbox{margin: 0 auto; display: block;} `);
