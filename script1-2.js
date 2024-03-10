@@ -1,43 +1,5 @@
 var checked = false;
-
-if (typeof GAME === 'undefined') { } else {
-    let Pog = setInterval(() => {
-        if (!GAME.pid) { } else {
-            clearInterval(Pog);
-            checked = true;
-        }
-    }, 50);
-
-    let Pgg = setInterval(() => {
-        clearInterval(Pgg);
-        for (var i in GAME) {
-            if (i.indexOf("socxxx") === 0 && i.lastIndexOf("ket") + 3 === i.length) {
-                GAME.socket = GAME[i];
-                break;
-            }
-        }
-        class kwsv3 {
-            constructor() {
-                this.isLogged((data) => {
-                    Object.defineProperty(GAME, 'pid', {
-                        writable: false
-                    });
-                    Object.defineProperty(GAME, 'login', {
-                        writable: false
-                    });
-                });
-                
-                this.tourSigned = false;
-                this.firstTournamentPageLoaded = false;
-                this.settings = this.getSettings();
-                this.createCSS();
-                this.createMinimapSettings();
-                if ($("#top_bar .adv").length) $("#top_bar .adv").remove();
-                this.sortClanPlanets();
-                this.loadRiddles((data) => {
-                    this.riddles = data;
-                });
-                window.addEventListener('load', function () {
+window.addEventListener('load', function () {
     // Definicje funkcji i obiektów
 
     BOT = {
@@ -95,6 +57,44 @@ if (typeof GAME === 'undefined') { } else {
     }, 2000);
 });
 
+if (typeof GAME === 'undefined') { } else {
+    let Pog = setInterval(() => {
+        if (!GAME.pid) { } else {
+            clearInterval(Pog);
+            checked = true;
+        }
+    }, 50);
+
+    let Pgg = setInterval(() => {
+        clearInterval(Pgg);
+        for (var i in GAME) {
+            if (i.indexOf("socxxx") === 0 && i.lastIndexOf("ket") + 3 === i.length) {
+                GAME.socket = GAME[i];
+                break;
+            }
+        }
+        class kwsv3 {
+            constructor() {
+                this.isLogged((data) => {
+                    Object.defineProperty(GAME, 'pid', {
+                        writable: false
+                    });
+                    Object.defineProperty(GAME, 'login', {
+                        writable: false
+                    });
+                });
+                
+                this.tourSigned = false;
+                this.firstTournamentPageLoaded = false;
+                this.settings = this.getSettings();
+                this.createCSS();
+                this.createMinimapSettings();
+                if ($("#top_bar .adv").length) $("#top_bar .adv").remove();
+                this.sortClanPlanets();
+                this.loadRiddles((data) => {
+                    this.riddles = data;
+                });
+                
                 this.addToCSS(`.kom{background:url(/gfx/layout/tloPilot.png); background-size:cover; border-image:url(/gfx/layout/mapborder.png) 7 8 7 7 fill; border-style:solid; border-width:7px 8px 7px 7px; box-shadow:none;} .kom .close_kom b{background:url(/gfx/layout/tloPilot.png);} .exchange_win{max-height:500; height:auto;}`);
                 this.addToCSS(`#emp_list .petopt_btns .newBtn{margin:0px 3px 3px 0px;} .newBtn.do_all_instances{color:#e5d029;}`);
                 this.addToCSS(`#quick_bar{z-index:4;} .qlink.kws_active_icon{animation-name:kws_active_icon;animation-duration:1s;animation-iteration-count:infinite;}@keyframes kws_active_icon { 0% { filter: hue-rotate(168deg); } 50% { filter:hue-rotate(40deg); } 100% { filter: hue-rotate(168deg); } } .sideIcons{ width:29px; height:29px; left:-37px; background-size:contain; } .autoExpeCodes{background:#12121294; border:1px solid rgb(87, 87, 114); border-radius:5px 0px 0px 5px; position:absolute; top:-100px; left:-97px; padding:5px; display:none; color:#ffe500c7; user-select:none;} .manage_autoExpeditions:hover + .autoExpeCodes, .autoExpeCodes:hover{ display:flex; } .autoExpeCodes .newCheckbox{margin: 0 auto; display: block;} `);
