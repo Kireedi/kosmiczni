@@ -69,7 +69,7 @@ Promise.all(scriptUrls.map(loadScript))
                 BOT.switchToPreviousChar();
             }
         });
-    }, 150);
+    }, 151);
 });
           let mainPanelFound = false;
         let ghButtonExecuted = false;
