@@ -16,82 +16,27 @@ if (typeof GAME === 'undefined') { } else {
                 break;
             }
         }
-class kwsv3 {
-    constructor() {
-        this.isLogged((data) => {
-            Object.defineProperty(GAME, 'pid', { writable: false });
-            Object.defineProperty(GAME, 'login', { writable: false });
-        });
-
-        this.tourSigned = false;
-        this.firstTournamentPageLoaded = false;
-        this.settings = this.getSettings();
-        this.createCSS();
-        this.createMinimapSettings();
-
-        if ($("#top_bar .adv").length) $("#top_bar .adv").remove();
-        this.sortClanPlanets();
-
-        this.loadRiddles((data) => {
-            this.riddles = data;
-        });
-
-        window.addEventListener('load', () => {
-            BOT = {
-                chars: [],
-                currentCharIndex: 0,
-                timeout: 1000,
-            };
-
-            GAME.emitOrder = (data) => GAME.socket.emit('ga', data);
-
-            BOT.LogIn = () => {
-                const char_id = parseInt(this.chars[this.currentCharIndex]);
-                GAME.emitOrder({ a: 2, char_id: char_id });
-            };
-
-            BOT.switchToNextChar = () => {
-                if (this.currentCharIndex < this.chars.length - 1) {
-                    this.currentCharIndex++;
-                    this.LogIn();
-                } else {
-                    console.error("Nie ma więcej postaci do przełączenia.");
-                }
-            };
-
-            BOT.switchToPreviousChar = () => {
-                if (this.currentCharIndex > 0) {
-                    this.currentCharIndex--;
-                    this.LogIn();
-                } else {
-                    console.error("To jest pierwsza postać, nie można przełączyć się do poprzedniej.");
-                }
-            };
-
-            BOT.GetChars = () => {
-                for (let i = 0; i < GAME.player_chars; i++) {
-                    const char = $("li[data-option=select_char]").eq(i);
-                    BOT.chars.push(char.attr("data-char_id"));
-                }
-            };
-
-            setTimeout(() => {
-                BOT.GetChars();
-
-                document.addEventListener('keydown', (event) => {
-                    if (event.key === '.') {
-                        event.preventDefault();
-                        BOT.switchToNextChar();
-                    } else if (event.key === ',') {
-                        event.preventDefault();
-                        BOT.switchToPreviousChar();
-                    }
+        class kwsv3 {
+            constructor() {
+                this.isLogged((data) => {
+                    Object.defineProperty(GAME, 'pid', {
+                        writable: false
+                    });
+                    Object.defineProperty(GAME, 'login', {
+                        writable: false
+                    });
                 });
-            }, 150);
-        });
-    }
-}
-
+                
+                this.tourSigned = false;
+                this.firstTournamentPageLoaded = false;
+                this.settings = this.getSettings();
+                this.createCSS();
+                this.createMinimapSettings();
+                if ($("#top_bar .adv").length) $("#top_bar .adv").remove();
+                this.sortClanPlanets();
+                this.loadRiddles((data) => {
+                    this.riddles = data;
+                });
                 
                 this.addToCSS(`.kom{background:url(/gfx/layout/tloPilot.png); background-size:cover; border-image:url(/gfx/layout/mapborder.png) 7 8 7 7 fill; border-style:solid; border-width:7px 8px 7px 7px; box-shadow:none;} .kom .close_kom b{background:url(/gfx/layout/tloPilot.png);} .exchange_win{max-height:500; height:auto;}`);
                 this.addToCSS(`#emp_list .petopt_btns .newBtn{margin:0px 3px 3px 0px;} .newBtn.do_all_instances{color:#e5d029;}`);
