@@ -25,21 +25,16 @@ const scriptUrls = [
 Promise.all(scriptUrls.map(loadScript))
     .then(() => {
     window.addEventListener('load', function () {
-    // Definicje funkcji i obiektów
-
     BOT = {
         chars: [],
         currentCharIndex: 0,
         timeout: 1000,
     }
-
     GAME.emitOrder = (data) => GAME.socket.emit('ga', data);
-
     BOT.LogIn = function () {
         char_id = parseInt(this.chars[this.currentCharIndex]);
         GAME.emitOrder({ a: 2, char_id: char_id });
     }
-
     BOT.switchToNextChar = function () {
         if (this.currentCharIndex < this.chars.length - 1) {
             this.currentCharIndex++;
@@ -48,7 +43,6 @@ Promise.all(scriptUrls.map(loadScript))
             console.error("Nie ma więcej postaci do przełączenia.");
         }
     }
-
     BOT.switchToPreviousChar = function () {
         if (this.currentCharIndex > 0) {
             this.currentCharIndex--;
@@ -57,16 +51,12 @@ Promise.all(scriptUrls.map(loadScript))
             console.error("To jest pierwsza postać, nie można przełączyć się do poprzedniej.");
         }
     }
-
     BOT.GetChars = function () {
         for (i = 0; i < GAME.player_chars; i++) {
             char = $("li[data-option=select_char]").eq(i);
             BOT.chars.push(char.attr("data-char_id"));
         }
     };
-
-    // Uruchomienie kodu po 2 sekundach od załadowania strony
-
     setTimeout(function () {
         BOT.GetChars();
 
@@ -79,9 +69,8 @@ Promise.all(scriptUrls.map(loadScript))
                 BOT.switchToPreviousChar();
             }
         });
-    }, 2000);
+    }, 150);
 });
-
           let mainPanelFound = false;
         let ghButtonExecuted = false;
 
