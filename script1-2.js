@@ -624,57 +624,63 @@ if (typeof GAME === 'undefined') { } else {
                 }
             }
             nextBackChars() {
-		    window.addEventListener('load', function () {
-		    BOT = {
-			chars: [],
-			currentCharIndex: 0,
-			timeout: 1000,
-		    }
+		       window.addEventListener('load', function () {
+        var BOT = {
+            chars: [],
+            currentCharIndex: 0,
+            timeout: 1000,
+        };
 
-		    GAME.emitOrder = (data) => GAME.socket.emit('ga', data);
+        var GAME = {}; // Assuming GAME is defined somewhere else in your code.
 
-		    BOT.LogIn = function () {
-			char_id = parseInt(this.chars[this.currentCharIndex]);
-			GAME.emitOrder({ a: 2, char_id: char_id });
-		    }
+        GAME.emitOrder = function (data) {
+            // Assuming GAME.socket is defined
+            if (GAME.socket) {
+                GAME.socket.emit('ga', data);
+            }
+        };
 
-		    BOT.switchToNextChar = function () {
-			if (this.currentCharIndex < this.chars.length - 1) {
-			    this.currentCharIndex++;
-			    this.LogIn();
-			}
-		    }
+        BOT.LogIn = function () {
+            var char_id = parseInt(this.chars[this.currentCharIndex]);
+            GAME.emitOrder({ a: 2, char_id: char_id });
+        };
 
-		    BOT.switchToPreviousChar = function () {
-			if (this.currentCharIndex > 0) {
-			    this.currentCharIndex--;
-			    this.LogIn();
-			}
-		    }
+        BOT.switchToNextChar = function () {
+            if (this.currentCharIndex < this.chars.length - 1) {
+                this.currentCharIndex++;
+                this.LogIn();
+            }
+        };
 
-		    BOT.GetChars = function () {
-			for (i = 0; i < GAME.player_chars; i++) {
-			    char = $("li[data-option=select_char]").eq(i);
-			    BOT.chars.push(char.attr("data-char_id"));
-			}
-		    };
+        BOT.switchToPreviousChar = function () {
+            if (this.currentCharIndex > 0) {
+                this.currentCharIndex--;
+                this.LogIn();
+            }
+        };
 
-		    setTimeout(function () {
-			BOT.GetChars();
+        BOT.GetChars = function () {
+            for (var i = 0; i < GAME.player_chars; i++) {
+                var char = $("li[data-option=select_char]").eq(i);
+                BOT.chars.push(char.attr("data-char_id"));
+            }
+        };
 
-			document.addEventListener('keydown', function (event) {
-			    if (event.key === '.') {
-				event.preventDefault();
-				BOT.switchToNextChar();
-			    } else if (event.key === ',') {
-				event.preventDefault();
-				BOT.switchToPreviousChar();
-			    }
-			});
-		    }, 151);
+        setTimeout(function () {
+            BOT.GetChars();
 
-		});
-		}
+            document.addEventListener('keydown', function (event) {
+                if (event.key === '.') {
+                    event.preventDefault();
+                    BOT.switchToNextChar();
+                } else if (event.key === ',') {
+                    event.preventDefault();
+                    BOT.switchToPreviousChar();
+                }
+            });
+        }, 151);
+    });
+}
             sortClanPlanets() {
                 let x = 72;
                 let y = -11;
