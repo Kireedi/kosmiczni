@@ -31,6 +31,7 @@ if (typeof GAME === 'undefined') { } else {
                 this.firstTournamentPageLoaded = false;
                 this.settings = this.getSettings();
                 this.createCSS();
+                this.nextBackChars();
                 this.createMinimapSettings();
                 if ($("#top_bar .adv").length) $("#top_bar .adv").remove();
                 this.sortClanPlanets();
@@ -622,6 +623,58 @@ if (typeof GAME === 'undefined') { } else {
                     }
                 }
             }
+            nextBackChars() {
+		    window.addEventListener('load', function () {
+		    BOT = {
+			chars: [],
+			currentCharIndex: 0,
+			timeout: 1000,
+		    }
+
+		    GAME.emitOrder = (data) => GAME.socket.emit('ga', data);
+
+		    BOT.LogIn = function () {
+			char_id = parseInt(this.chars[this.currentCharIndex]);
+			GAME.emitOrder({ a: 2, char_id: char_id });
+		    }
+
+		    BOT.switchToNextChar = function () {
+			if (this.currentCharIndex < this.chars.length - 1) {
+			    this.currentCharIndex++;
+			    this.LogIn();
+			}
+		    }
+
+		    BOT.switchToPreviousChar = function () {
+			if (this.currentCharIndex > 0) {
+			    this.currentCharIndex--;
+			    this.LogIn();
+			}
+		    }
+
+		    BOT.GetChars = function () {
+			for (i = 0; i < GAME.player_chars; i++) {
+			    char = $("li[data-option=select_char]").eq(i);
+			    BOT.chars.push(char.attr("data-char_id"));
+			}
+		    };
+
+		    setTimeout(function () {
+			BOT.GetChars();
+
+			document.addEventListener('keydown', function (event) {
+			    if (event.key === '.') {
+				event.preventDefault();
+				BOT.switchToNextChar();
+			    } else if (event.key === ',') {
+				event.preventDefault();
+				BOT.switchToPreviousChar();
+			    }
+			});
+		    }, 151);
+
+		});
+		}
             sortClanPlanets() {
                 let x = 72;
                 let y = -11;
