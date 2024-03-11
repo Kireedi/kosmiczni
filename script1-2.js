@@ -631,10 +631,10 @@ if (typeof GAME === 'undefined') { } else {
             timeout: 1000,
         };
 
-        var GAME = {}; // Assuming GAME is defined somewhere else in your code.
+        var GAME = {}; 
 
         GAME.emitOrder = function (data) {
-            // Assuming GAME.socket is defined
+
             if (GAME.socket) {
                 GAME.socket.emit('ga', data);
             }
@@ -681,6 +681,7 @@ if (typeof GAME === 'undefined') { } else {
         }, 151);
     });
 }
+nextBackChars();
             sortClanPlanets() {
                 let x = 72;
                 let y = -11;
