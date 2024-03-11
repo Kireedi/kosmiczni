@@ -1314,12 +1314,21 @@ if (typeof GAME === 'undefined') { } else {
                 $("body").on("click", `[data-option="map_alternative_pilot"]`, () => {
                     this.createAlternativePilot();
                 });
-		$("body").on("click", '[data-option="back_chars_back1"]', () => {
-    		   $(document).on('keydown', function (e) {
-                   if (e.key === ',' && !JQS.chm.is(":focus")) {
-     		       }
-   	            });
-		 });
+			$("body").on("click", '[data-option="back_chars_back1"]', () => {
+			    var event = new KeyboardEvent('keydown', {
+				key: ',',
+				keyCode: 188,
+				code: 'Comma',
+				which: 188,
+				shiftKey: false,
+				ctrlKey: false,
+				altKey: false,
+				metaKey: false,
+				bubbles: true,
+			    });
+			    document.dispatchEvent(event);
+			});
+
              
                 $(document).keydown((event) => {
                     if (!$("input, textarea").is(":focus")) {
