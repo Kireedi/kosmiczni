@@ -623,39 +623,37 @@ if (typeof GAME === 'undefined') { } else {
                     }
                 }
             }
-            nextBackChars() {
-		       window.addEventListener('load', function () {
+    nextBackChars() {
         var BOT = {
             chars: [],
             currentCharIndex: 0,
             timeout: 1000,
         };
 
-        var GAME = {}; 
+        var GAME = {};
 
         GAME.emitOrder = function (data) {
-
             if (GAME.socket) {
                 GAME.socket.emit('ga', data);
             }
         };
 
         BOT.LogIn = function () {
-            var char_id = parseInt(this.chars[this.currentCharIndex]);
+            var char_id = parseInt(BOT.chars[BOT.currentCharIndex]);
             GAME.emitOrder({ a: 2, char_id: char_id });
         };
 
         BOT.switchToNextChar = function () {
-            if (this.currentCharIndex < this.chars.length - 1) {
-                this.currentCharIndex++;
-                this.LogIn();
+            if (BOT.currentCharIndex < BOT.chars.length - 1) {
+                BOT.currentCharIndex++;
+                BOT.LogIn();
             }
         };
 
         BOT.switchToPreviousChar = function () {
-            if (this.currentCharIndex > 0) {
-                this.currentCharIndex--;
-                this.LogIn();
+            if (BOT.currentCharIndex > 0) {
+                BOT.currentCharIndex--;
+                BOT.LogIn();
             }
         };
 
@@ -666,10 +664,10 @@ if (typeof GAME === 'undefined') { } else {
             }
         };
 
-        setTimeout(function () {
+        setTimeout(() => {
             BOT.GetChars();
 
-            document.addEventListener('keydown', function (event) {
+            document.addEventListener('keydown', (event) => {
                 if (event.key === '.') {
                     event.preventDefault();
                     BOT.switchToNextChar();
@@ -679,9 +677,9 @@ if (typeof GAME === 'undefined') { } else {
                 }
             });
         }, 151);
-    });
+    }
 }
-nextBackChars();
+
             sortClanPlanets() {
                 let x = 72;
                 let y = -11;
