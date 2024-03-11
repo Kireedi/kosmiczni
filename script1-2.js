@@ -1311,19 +1311,14 @@ if (typeof GAME === 'undefined') { } else {
                 $("body").on("click", `[data-option="map_alternative_pilot"]`, () => {
                     this.createAlternativePilot();
                 });
-		$('body').on('click', '[data-option="nextchar"]', function() {
+		     $('body').on('click', '[data-option="nextchar"]', () => {
 		    const event = new KeyboardEvent('keydown', { key: '.' });
 		    document.dispatchEvent(event);
-		}).on('touchstart', '[data-option="nextchar"]', function() {
-		    $(this).trigger('click');
-		});
-
-		$('body').on('click', '[data-option="backchar"]', function() {
+		    });
+		     $('body').on('click', '[data-option="backchar"]', () => {
 		    const event = new KeyboardEvent('keydown', { key: ',' });
 		    document.dispatchEvent(event);
-		}).on('touchstart', '[data-option="backchar"]', function() {
-		    $(this).trigger('click');
-		});	    
+		    });		    
                 $(document).keydown((event) => {
                     if (!$("input, textarea").is(":focus")) {
                         if (event.key === "x" || event.key === "X") {
