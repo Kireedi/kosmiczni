@@ -1311,14 +1311,15 @@ if (typeof GAME === 'undefined') { } else {
                 $("body").on("click", `[data-option="map_alternative_pilot"]`, () => {
                     this.createAlternativePilot();
                 });
-		     $('body').on('click', '[data-option="nextchar"]', () => {
+		$('body').on('touchstart click', '[data-option="nextchar"]', () => {
 		    const event = new KeyboardEvent('keydown', { key: '.' });
 		    document.dispatchEvent(event);
-		    });
-		     $('body').on('click', '[data-option="backchar"]', () => {
+		});
+		$('body').on('touchstart click', '[data-option="backchar"]', () => {
 		    const event = new KeyboardEvent('keydown', { key: ',' });
 		    document.dispatchEvent(event);
-		    });		    
+		});
+	    
                 $(document).keydown((event) => {
                     if (!$("input, textarea").is(":focus")) {
                         if (event.key === "x" || event.key === "X") {
