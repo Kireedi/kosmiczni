@@ -678,8 +678,8 @@ if (typeof GAME === 'undefined') { } else {
             });
         }, 151);
     }
+	}
 }
-
             sortClanPlanets() {
                 let x = 72;
                 let y = -11;
