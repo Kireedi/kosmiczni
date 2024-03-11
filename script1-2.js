@@ -1418,12 +1418,14 @@ if (typeof GAME === 'undefined') { } else {
                                 rent: 3
                             });
                         } else if (event.key === "7") {
-                            GAME.socket.emit('ga', {
-                                a: 10,
-                                type: 2,
-                                ct: 0
-                            });
-                        } else if (event.key === "8") {
+			    GAME.socket.emit('ga', {
+				a: 10,
+				type: 2,
+				ct: 0
+			    });
+			} else if (event.key === ",") {
+			    BOT.switchToNextChar();
+			} else if (event.key === "8")  {
                             let set = $("#ekw_sets").find(".option.ek_sets_all" + ":not(.current)").attr("data-set");
                             if (set != undefined) {
                                 GAME.socket.emit('ga', {
