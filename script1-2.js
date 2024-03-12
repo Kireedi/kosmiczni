@@ -31,7 +31,6 @@ if (typeof GAME === 'undefined') { } else {
                 this.firstTournamentPageLoaded = false;
                 this.settings = this.getSettings();
                 this.createCSS();
-                this.buttonnextback();
                 this.createMinimapSettings();
                 if ($("#top_bar .adv").length) $("#top_bar .adv").remove();
                 this.sortClanPlanets();
@@ -526,32 +525,6 @@ if (typeof GAME === 'undefined') { } else {
                     $("footer").addClass("hide_before");
                 }
             }
-           buttonnextback() {
-		var buttonStyle = "background-color: black; border: 1px solid white; padding: 2px; cursor: pointer; color: gold; width: 60px; height: 25px;";
-		var changeProfileNext = document.getElementById('changeProfileNext');
-		if (changeProfileNext) {
-		  changeProfileNext.style.cssText = buttonStyle;
-		  var headerMain = document.getElementById('header_main');
-		  if (headerMain) {
-		    headerMain.appendChild(changeProfileNext);
-		    changeProfileNext.style.position = 'absolute';
-		    changeProfileNext.style.top = '0px';
-		    changeProfileNext.style.right = '0';
-		  }
-		}
-
-		var changeProfilePrev = document.getElementById('changeProfilePrev');
-		if (changeProfilePrev) {
-		  changeProfilePrev.style.cssText = buttonStyle;
-		  var headerMain = document.getElementById('header_main');
-		  if (headerMain) {
-		    headerMain.appendChild(changeProfilePrev);
-		    changeProfilePrev.style.position = 'absolute';
-		    changeProfilePrev.style.top = '-2px';
-		    changeProfilePrev.style.left = '50px';
-		 	 }
-		      }
-		   }
             manageWebsiteBackground(act, url) {
                 if (act == "set") {
                     if (url.length > 5) {
