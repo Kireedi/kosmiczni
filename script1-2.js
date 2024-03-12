@@ -1841,9 +1841,7 @@ this.bindAlternativePilotButtons();
 		this.pvpKill();
                 });
                 $('#klawiszn').click(() => {
-                    var keyEvent = jQuery.Event('keydown');
-                    keyEvent.which = 78;  // Kod klawisza 'n'
-                    $(document).trigger(keyEvent);
+		this.useCompressor();
                 });
             }
         }
