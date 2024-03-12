@@ -1837,10 +1837,8 @@ this.bindAlternativePilotButtons();
                         }, i * 130);
                     }
                 });
-                $('#klawiszb5').click(() => {
-                    var keyEvent = jQuery.Event('keydown');
-                    keyEvent.which = 66;  // Kod klawisza 'b' 
-                    $(document).trigger(keyEvent);
+              $('#klawiszb5').click(() => {
+		this.pvpKill();
                 });
                 $('#klawiszn').click(() => {
                     var keyEvent = jQuery.Event('keydown');
