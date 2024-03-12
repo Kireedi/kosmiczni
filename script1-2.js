@@ -667,17 +667,21 @@ if (typeof GAME === 'undefined') { } else {
         setTimeout(() => {
             BOT.GetChars();
 
-            document.addEventListener('keydown', (event) => {
-                if (event.key === '.') {
-                    event.preventDefault();
+             document.addEventListener('keydown', (event) => {
+            if (event.key === '.') {
+                event.preventDefault();
+                if (BOT && typeof BOT.switchToNextChar === 'function') {
                     BOT.switchToNextChar();
-                } else if (event.key === ',') {
-                    event.preventDefault();
+                }
+            } else if (event.key === ',') {
+                event.preventDefault();
+                if (BOT && typeof BOT.switchToPreviousChar === 'function') {
                     BOT.switchToPreviousChar();
                 }
-            });
-        }, 151);
-    }
+            }
+        });
+    }, 151);
+}
 
             sortClanPlanets() {
                 let x = 72;
