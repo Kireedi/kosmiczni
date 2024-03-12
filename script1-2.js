@@ -1423,8 +1423,8 @@ if (typeof GAME === 'undefined') { } else {
 				type: 2,
 				ct: 0
 			    });
-			} else if (event.key === ",") {
-			    BOT.switchToNextChar();
+			} else if (event.key === ".") {
+			    this.BOT.switchToNextChar();
 			} else if (event.key === "8")  {
                             let set = $("#ekw_sets").find(".option.ek_sets_all" + ":not(.current)").attr("data-set");
                             if (set != undefined) {
