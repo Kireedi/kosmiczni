@@ -623,58 +623,60 @@ if (typeof GAME === 'undefined') { } else {
                     }
                 }
             }
-    nextBackChars() {
-        var BOT = {
-            chars: [],
-            currentCharIndex: 0,
-            timeout: 1000,
-        };
+nextBackChars() {
+    var BOT = {
+        chars: [],
+        currentCharIndex: 0,
+        timeout: 1000,
+    };
 
-        var GAME = {};
+    var GAME = {};
 
-        GAME.emitOrder = function (data) {
-            if (GAME.socket) {
-                GAME.socket.emit('ga', data);
-            }
-        };
+    GAME.emitOrder = function (data) {
+        if (GAME.socket) {
+            GAME.socket.emit('ga', data);
+        }
+    };
 
-        BOT.LogIn = function () {
-            var char_id = parseInt(BOT.chars[BOT.currentCharIndex]);
-            GAME.emitOrder({ a: 2, char_id: char_id });
-        };
+    BOT.LogIn = function () {
+        var char_id = parseInt(BOT.chars[BOT.currentCharIndex]);
+        GAME.emitOrder({ a: 2, char_id: char_id });
+    };
 
-        BOT.switchToNextChar = function () {
-            if (BOT.currentCharIndex < BOT.chars.length - 1) {
-                BOT.currentCharIndex++;
-                BOT.LogIn();
-            }
-        };
+    BOT.switchToNextChar = function () {
+        if (BOT.currentCharIndex < BOT.chars.length - 1) {
+            BOT.currentCharIndex++;
+            BOT.LogIn();
+        }
+    };
 
-        BOT.switchToPreviousChar = function () {
-            if (BOT.currentCharIndex > 0) {
-                BOT.currentCharIndex--;
-                BOT.LogIn();
-            }
-        };
+    BOT.switchToPreviousChar = function () {
+        if (BOT.currentCharIndex > 0) {
+            BOT.currentCharIndex--;
+            BOT.LogIn();
+        }
+    };
 
-        BOT.GetChars = function () {
-            for (var i = 0; i < GAME.player_chars; i++) {
-                var char = $("li[data-option=select_char]").eq(i);
-                BOT.chars.push(char.attr("data-char_id"));
-            }
-        };
+    BOT.GetChars = function () {
+        for (var i = 0; i < GAME.player_chars; i++) {
+            var char = $("li[data-option=select_char]").eq(i);
+            BOT.chars.push(char.attr("data-char_id"));
+        }
+    };
 
-        setTimeout(() => {
-            BOT.GetChars();
+    setTimeout(() => {
+        BOT.GetChars();
 
-             document.addEventListener('keydown', (event) => {
+        document.addEventListener('keydown', (event) => {
             if (event.key === '.') {
                 event.preventDefault();
+
                 if (BOT && typeof BOT.switchToNextChar === 'function') {
                     BOT.switchToNextChar();
                 }
             } else if (event.key === ',') {
                 event.preventDefault();
+
                 if (BOT && typeof BOT.switchToPreviousChar === 'function') {
                     BOT.switchToPreviousChar();
                 }
@@ -682,6 +684,7 @@ if (typeof GAME === 'undefined') { } else {
         });
     }, 151);
 }
+
 
             sortClanPlanets() {
                 let x = 72;
