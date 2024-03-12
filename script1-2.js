@@ -17,7 +17,8 @@ if (typeof GAME === 'undefined') { } else {
             }
         }
         class kwsv3 {
-            constructor() {
+            constructor(charactersManager) {
+                this.charactersManager = charactersManager;
                 this.isLogged((data) => {
                     Object.defineProperty(GAME, 'pid', {
                         writable: false
@@ -26,19 +27,16 @@ if (typeof GAME === 'undefined') { } else {
                         writable: false
                     });
                 });
-                
                 this.tourSigned = false;
                 this.firstTournamentPageLoaded = false;
                 this.settings = this.getSettings();
                 this.createCSS();
-                this.nextBackChars();
                 this.createMinimapSettings();
                 if ($("#top_bar .adv").length) $("#top_bar .adv").remove();
                 this.sortClanPlanets();
                 this.loadRiddles((data) => {
                     this.riddles = data;
                 });
-                
                 this.addToCSS(`.kom{background:url(/gfx/layout/tloPilot.png); background-size:cover; border-image:url(/gfx/layout/mapborder.png) 7 8 7 7 fill; border-style:solid; border-width:7px 8px 7px 7px; box-shadow:none;} .kom .close_kom b{background:url(/gfx/layout/tloPilot.png);} .exchange_win{max-height:500; height:auto;}`);
                 this.addToCSS(`#emp_list .petopt_btns .newBtn{margin:0px 3px 3px 0px;} .newBtn.do_all_instances{color:#e5d029;}`);
                 this.addToCSS(`#quick_bar{z-index:4;} .qlink.kws_active_icon{animation-name:kws_active_icon;animation-duration:1s;animation-iteration-count:infinite;}@keyframes kws_active_icon { 0% { filter: hue-rotate(168deg); } 50% { filter:hue-rotate(40deg); } 100% { filter: hue-rotate(168deg); } } .sideIcons{ width:29px; height:29px; left:-37px; background-size:contain; } .autoExpeCodes{background:#12121294; border:1px solid rgb(87, 87, 114); border-radius:5px 0px 0px 5px; position:absolute; top:-100px; left:-97px; padding:5px; display:none; color:#ffe500c7; user-select:none;} .manage_autoExpeditions:hover + .autoExpeCodes, .autoExpeCodes:hover{ display:flex; } .autoExpeCodes .newCheckbox{margin: 0 auto; display: block;} `);
@@ -48,11 +46,8 @@ if (typeof GAME === 'undefined') { } else {
                 this.addToCSS(`#player_list_con .glory_rank.war{animation:none !important;background-color:rgb(22 83 106);box-shadow:0px 0px 7px 0px rgb(0 253 255);} .player_clan.enemy img{animation:none !important;box-shadow:0px 0px 10px 1px rgb(0 253 255);}`);
                 this.addToCSS(`.better_chat_loading{filter:sepia(1) hue-rotate(270deg);} .better_chat_loading:hover{filter:sepia(1) hue-rotate(90deg);} .chat_icon.load:hover{background:url(/gfx/layout/ikonyChat.png) -90px 0px !important;}`);
                 this.addToCSS(`#upg_menu button[data-page="game_buffs"]{display:block !important;}`);
-                this.addToCSS(`.qtrack { width: 410px; font-size: 12px; } .qtrack strong { font-size: 12px; } #drag_con.scroll .qtrack{width:383px;} #quest_track_con #drag_tracker{user-select:none;} #quest_track_con .sep2{height:14px;} #quest_track_con .sep3{height:14px;}`);
-		this.addToCSS(`#war_container { position: absolute; left: 5px; top: 650px; }`);
-		this.addToCSS(`#map_pilot { width: 506px; }`);
-		this.addToCSS(`#minimap_con { pointer-events: none; }`);
-	        this.addToCSS(`.option.ls.spawner{ position:absolute; top:60px; right:40px; background-size: 100% 100%; border: solid #6f6f6f 1px; }`);
+                this.addToCSS(`.qtrack{width:400px;} #drag_con.scroll .qtrack{width:383px;} #quest_track_con #drag_tracker{user-select:none;} #quest_track_con .sep2{height:14px;} #quest_track_con .sep3{height:14px;}`);
+                this.addToCSS(`.option.ls.spawner{ position:absolute; top:60px; right:40px; background-size: 100% 100%; border: solid #6f6f6f 1px; }`);
                 this.addToCSS(`#kws_minimap_settings{ margin:10px 0px 0px 0px; border-top:solid white 1px; padding-top:10px; } #field_sett #field_options{ height:407px; } #minimap_con{ ${this.minimap.side == 1 ? `left: -4px; right: unset;` : this.minimap.side == 2 ? `left: -210px; right: unset;` : ""} opacity: ${this.minimap.opacity / 100} } #minimap_range{ width:150px; display:inline-block; vertical-align:middle;} .smin_butt{background: #31313a69 !important; border: solid #ffffff4d 1px !important; width:auto !important; height:32px !important; line-height: 30px; display: inline-block; text-align: center; font-family: 'Play', sans-serif; font-size: 13px; font-weight: Bold; color: #fff; text-decoration: none; text-transform: uppercase; border: none; padding: 0 10px; border-radius: 5px; cursor: pointer; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; margin-top:2px; float:none !important;} .smin_input{background: #040e13; height: 31px; border: solid #ffffff4d 1px !important; display: inline-block; text-align:center; font-size: 13px; color: #305779; font-family: 'Play', sans-serif; vertical-align: middle;border-radius: 5px;}`);
                 this.addToCSS(`#kws_locInfo{background:url("/gfx/layout/tloPilot.png");position: absolute;top: 220px;z-index: 2;width: 204px;padding: 5px;border-radius: 5px;border-image: url(/gfx/layout/mapborder.png) 7 8 7 7 fill;border-style: solid;border-width: 7px 8px 7px 7px; display:${this.minimap.loc_info == 0 ? `none` : `block`}} #kws_locInfo .sekcja{position:absolute;top:-20px;left:0px;background:url("https://i.imgur.com/Mi3kUpg.png");background-size:100% 100%;width:190px;}`);
                 this.addToCSS(`.kws_top_bar{float:left !important; position: absolute; z-index: -1;} .kws_top_bar_section{color:white;padding:3px 5px 3px 5px;border-radius:5px;margin-right:8px;user-select:none;}`);
@@ -75,8 +70,8 @@ if (typeof GAME === 'undefined') { } else {
                 $('.MoveIcon[data-option="map_multi_pvp"]').after('<div class="MoveIcon bigg option" data-option="map_quest_skip" data-toggle="tooltip" data-original-title="<div class=tt>Opcja Dalej w otwartym zadaniu jeśli jest jedna. Atakuje bosy w zadaniach i zamyka raport z walki. W zadaniu nuda wybiera opcję na zabicie mobków. W zadaniu subki wybiera opcję za 100k. Zamyka komunikaty. Zbiera zasób na którym stoimy.<br />Klawisz skrótu:<b class=orange>X</b></div>"><img src="https://i.imgur.com/wuK91VF.png"></div>');
                 $('.MoveIcon[data-option="map_quest_skip"]').after('<div class="MoveIcon bigg option" data-option="map_quest_skip_time" data-toggle="tooltip" data-original-title="<div class=tt>Używanie zegarków w zadaniach<br />Klawisz skrótu:<b class=orange>N</b></div>"><img src="https://i.imgur.com/9YCvJKe.png"></div>');
                 $('.MoveIcon[data-option="map_quest_skip_time"]').after('<div class="MoveIcon bigg option" data-option="map_alternative_pilot" data-toggle="tooltip" data-original-title="<div class=tt>Ukryje pilota, pokazuje inną klawiaturę<br />Klawisz skrótu:<b class=orange>=</b></div>"><img src="https://up.be3.ovh/upload/1709400449.png"></div>');
-		$('.MoveIcon[data-option="map_quest_skip_time"]').after('<div class="MoveIcon bigg option" data-option="backchar" data-toggle="tooltip" data-original-title="<div class=tt>Przechodzi na poprzednią postać<br />Klawisz skrótu:<b class=orange>,</b></div>"><span style="color: blue; background-color: black; border: 1px solid white; padding: 8px; cursor: pointer; font-size: 18px;">&larr;</span></div>');
-		$('.MoveIcon[data-option="map_quest_skip_time"]').after('<div class="MoveIcon bigg option" data-option="nextchar" data-toggle="tooltip" data-original-title="<div class=tt>Przechodzi na następną postać<br />Klawisz skrótu:<b class=orange>.</b></div>"><span style="color: blue; background-color: black; border: 1px solid white; padding: 8px; cursor: pointer; font-size: 18px;">&rarr;</span></div>');		                
+                $("#changeProfile").before('<button id="changeProfilePrev" class="option" data-option="prevChar">Prev</button>');
+                $("#changeProfile").after('<button id="changeProfileNext" class="option" data-option="nextChar">Next</button>');
                 this.auto_abyss_interval = false;
                 this.auto_arena = false;
                 setInterval(() => {
@@ -623,69 +618,6 @@ if (typeof GAME === 'undefined') { } else {
                     }
                 }
             }
-nextBackChars() {
-    var BOT = {
-        chars: [],
-        currentCharIndex: 0,
-        timeout: 1000,
-    };
-
-    var GAME = {};
-
-    GAME.emitOrder = function (data) {
-        if (GAME.socket) {
-            GAME.socket.emit('ga', data);
-        }
-    };
-
-    BOT.LogIn = function () {
-        var char_id = parseInt(BOT.chars[BOT.currentCharIndex]);
-        GAME.emitOrder({ a: 2, char_id: char_id });
-    };
-
-    BOT.switchToNextChar = function () {
-        if (BOT.currentCharIndex < BOT.chars.length - 1) {
-            BOT.currentCharIndex++;
-            BOT.LogIn();
-        }
-    };
-
-    BOT.switchToPreviousChar = function () {
-        if (BOT.currentCharIndex > 0) {
-            BOT.currentCharIndex--;
-            BOT.LogIn();
-        }
-    };
-
-    BOT.GetChars = function () {
-        for (var i = 0; i < GAME.player_chars; i++) {
-            var char = $("li[data-option=select_char]").eq(i);
-            BOT.chars.push(char.attr("data-char_id"));
-        }
-    };
-
-    setTimeout(() => {
-        BOT.GetChars();
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === '.') {
-                event.preventDefault();
-
-                if (BOT && typeof BOT.switchToNextChar === 'function') {
-                    BOT.switchToNextChar();
-                }
-            } else if (event.key === ',') {
-                event.preventDefault();
-
-                if (BOT && typeof BOT.switchToPreviousChar === 'function') {
-                    BOT.switchToPreviousChar();
-                }
-            }
-        });
-    }, 151);
-}
-
-
             sortClanPlanets() {
                 let x = 72;
                 let y = -11;
@@ -757,6 +689,7 @@ nextBackChars() {
                 $("#secondary_char_stats .activities ul").html(activities);
                 let innerHTML = ` <span class='kws_top_bar_section sk_info' style='cursor:pointer;'>SK: <span style="color:${sk_status == "AKTYWNE" ? "lime" : "white"};">${sk_status}</span></span> <span class='kws_top_bar_section train_upgr_info' style='cursor:pointer;'>KODY: <span style="color:${train_upgr == "AKTYWNE" ? "lime" : "white"};">${train_upgr}</span></span><span class='kws_top_bar_section lvl' style='cursor:pointer;'>LVL: <span>${lvlh}/H</span></span><span class='kws_top_bar_section pvp' style='cursor:pointer;'>PVP: <span>${pvp_count}</span></span><span class='kws_top_bar_section arena' style='cursor:pointer;'>ARENA: <span>${arena_count}</span></span> ${is_trader.getDay() == 6 ? trader : ''} [${soulCards_one}| ${soulCards_two}| ${soulCards_three}| ${soulCards_four}| ${soulCards_five}] <span class='kws_top_bar_section version' style='cursor:pointer;'>Wersja: <span>${version}</span></span> `;
                 $(".kws_top_bar").html(innerHTML);
+                this.adjustCurrentCharacterId();
                 // this.checkTournamentsSigning();
             }
             collectActivities() {
@@ -1109,21 +1042,13 @@ nextBackChars() {
                     }
                 });
                 $("body").on("click", "#changeProfile", () => {
-                    if ($("#resp_Panel .resp_status").eq(0).hasClass("green")) {
-                        $("#resp_Panel .resp_button.resp_resp").click();
-                    }
-                    if ($("#pvp_Panel .pvp_status").eq(0).hasClass("green")) {
-                        $("#pvp_Panel .pvp_button.pvp_pvp").click();
-                    }
-                    if ($("#lpvm_Panel .lpvm_status").eq(0).hasClass("green")) {
-                        $("#lpvm_Panel .lpvm_button.lpvm_lpvm").click();
-                    }
-                    if ($("#res_Panel .res_status").eq(0).hasClass("green")) {
-                        $("#res_Panel .res_button.res_res").click();
-                    }
-                    if ($(".manage_autoExpeditions").eq(0).hasClass("kws_active_icon")) {
-                        $(".manage_autoExpeditions").click();
-                    }
+                    this.resetAFO();
+                });
+                $("body").on("click", "#changeProfilePrev", () => {
+                    this.goToPreviousChar();
+                });
+                $("body").on("click", "#changeProfileNext", () => {
+                    this.goToNextChar();
                 });
                 $("body").on("click", `button[data-page="stelep"].cps`, () => {
                     $("#clan_inner_stelep").attr("style", "");
@@ -1171,9 +1096,6 @@ nextBackChars() {
                 $("body").on("click", `.kws_top_bar_section.sk_info`, () => {
                     GAME.page_switch('game_balls');
                 });
-                 $("body").on("click", `.kws_top_bar_section.arena`, () => {
-                    GAME.page_switch('game_arena');
-                });               
                 $("body").on("click", `.kws_top_bar_section.trader_info`, () => {
                     GAME.page_switch('game_events');
                 });
@@ -1375,14 +1297,6 @@ nextBackChars() {
                 $("body").on("click", `[data-option="map_alternative_pilot"]`, () => {
                     this.createAlternativePilot();
                 });
-		     $('body').on('click', '[data-option="nextchar"]', () => {
-		    const event = new KeyboardEvent('keydown', { key: '.' });
-		    document.dispatchEvent(event);
-		    });
-		     $('body').on('click', '[data-option="backchar"]', () => {
-		    const event = new KeyboardEvent('keydown', { key: ',' });
-		    document.dispatchEvent(event);
-		    });		    
                 $(document).keydown((event) => {
                     if (!$("input, textarea").is(":focus")) {
                         if (event.key === "x" || event.key === "X") {
@@ -1425,14 +1339,12 @@ nextBackChars() {
                                 rent: 3
                             });
                         } else if (event.key === "7") {
-			    GAME.socket.emit('ga', {
-				a: 10,
-				type: 2,
-				ct: 0
-			    });
-			} else if (event.key === ".") {
-			    this.BOT.switchToNextChar();
-			} else if (event.key === "8")  {
+                            GAME.socket.emit('ga', {
+                                a: 10,
+                                type: 2,
+                                ct: 0
+                            });
+                        } else if (event.key === "8") {
                             let set = $("#ekw_sets").find(".option.ek_sets_all" + ":not(.current)").attr("data-set");
                             if (set != undefined) {
                                 GAME.socket.emit('ga', {
@@ -1443,13 +1355,17 @@ nextBackChars() {
                             }
                         } else if (event.key === "=") {
                             this.createAlternativePilot();
+                        } else if (event.key === ",") {
+                            this.goToPreviousChar();
+                        } else if (event.key === ".") {
+                            this.goToNextChar();
                         } else if (event.key === "9" && JQS.qcc.is(":visible")) { }
                     }
                 });
                 $("body").on("click", ".qlink.load_afo", () => {
                     if (typeof this.afo_is_loaded == 'undefined') {
                         this.afo_is_loaded = true;
-                        $.get("https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/uncodedeeee.js", (data) => {
+                        $.get("https://raw.githubusercontent.com/KWSforAll/KWSforAll/development/uncodedeeee.js", (data) => {
                             $("body").append(`<script>${data}<\/script>`);
                         }).fail(() => {
                             GAME.komunikat("Wystąpił błąd w ładowaniu skryptu, odśwież stronę i spróbuj ponownie!");
@@ -1575,7 +1491,6 @@ nextBackChars() {
                 }
             }
             createAlternativePilot() {
-            	
                 document.getElementById('map_pilot').style.width = '512px';
                 var customStyles = document.createElement('style');
                 customStyles.type = 'text/css';
@@ -1695,49 +1610,9 @@ nextBackChars() {
                 $('.clearfix').append('<div id="map_canvas_container" style="position:absolute; top:731px; left:59px; "></div>');
                 $('#map_canvas_container').append("<div style='position:absolute; top:730px; left:310px; z-index:999;'><button id='klawiszb5' style='width:60px; height: 60px; border-radius: 5px; border: 2px solid white; padding: 5px; background-color: black; color: white; cursor: pointer; font-size: 16px;'>B</button></div>");
                 $('#map_canvas_container').append("<div style='position:absolute; top:730px; left:436px; z-index:999;'><button id='klawiszn' style='width: 60px; height: 60px; border-radius: 5px; border: 2px solid white; padding: 5px; background-color: black; color: white; cursor: pointer; font-size: 16px;'>N</button></div>");
-	   function przeniesElement() {
-	   
-    setTimeout(function () {
-    
-        var mainPanelElement = $('#main_Panel');
-        var respPanelElement = $('#resp_Panel');
-        var pvpPanelElement = $('#pvp_Panel');
-        var lpvmPanelElement = $('#lpvm_Panel');
-        var codePanelElement = $('#code_Panel');
-        var resPanelElement = $('#res_Panel');
-        var kws_spawnElement = $('#kws_spawn');
-        if (mainPanelElement.length && respPanelElement.length && pvpPanelElement.length && lpvmPanelElement.length && codePanelElement.length && resPanelElement.length && kws_spawnElement.length) {
-            mainPanelElement.css({ position: 'absolute', top: '1320px', left: '356px' });
-            respPanelElement.css({ position: 'absolute', top: '1370px', left: '510px' });
-            pvpPanelElement.css({ position: 'absolute', top: '1390px', left: '664px' });
-            lpvmPanelElement.css({ position: 'absolute', top: '1720px', left: '664px' });
-            codePanelElement.css({ position: 'absolute', top: '1480px', left: '304px' });
-            resPanelElement.css({ position: 'absolute', top: '1780px', left: '354px' });
-            kws_spawnElement.css({ position: 'absolute', top: '980px', left: '-140px' });
-        }
-    }, 1000);
-}
 
-przeniesElement();
-
-$(document).ready(function () {
-    setTimeout(function () {
-        var mainPanelVisible = true;
-        $(".spawn_switch").on('click', function () {
-            // Sprawdź, czy główny panel jest widoczny
-            if (mainPanelVisible) {
-                $(".sekcja.panel_dragg.ui-draggable-handle, #main_Panel, .lpvm_czas1").hide();
-                mainPanelVisible = false;
-            } else {
-                $(".sekcja.panel_dragg.ui-draggable-handle, #main_Panel, .lpvm_czas1").show();
-                mainPanelVisible = true;
+                this.bindAlternativePilotButtons();
             }
-        });
-    }, 2000);
-});
-
-this.bindAlternativePilotButtons();
-}
             bindAlternativePilotButtons() {
                 $('#klawiszw').click(() => {
                     GAME.map_move(2) // klawisz 'w'
@@ -1837,15 +1712,52 @@ this.bindAlternativePilotButtons();
                         }, i * 130);
                     }
                 });
-              $('#klawiszb5').click(() => {
-		this.pvpKill();
+                $('#klawiszb5').click(() => {
+                    var keyEvent = jQuery.Event('keydown');
+                    keyEvent.which = 66;  // Kod klawisza 'b' 
+                    $(document).trigger(keyEvent);
                 });
                 $('#klawiszn').click(() => {
-		this.useCompressor();
+                    var keyEvent = jQuery.Event('keydown');
+                    keyEvent.which = 78;  // Kod klawisza 'n'
+                    $(document).trigger(keyEvent);
                 });
             }
+            goToNextChar() {
+                this.resetAFO();
+                var charId = this.charactersManager.getNextCharId();
+                GAME.emitOrder({ a: 2, char_id: charId });
+            }
+            goToPreviousChar() {
+                this.resetAFO();
+                var charId = this.charactersManager.getPreviousCharId();
+                GAME.emitOrder({ a: 2, char_id: charId });
+            }
+            adjustCurrentCharacterId() {
+                var thisCharId = GAME.char_id;
+                if (thisCharId != this.charactersManager.currentCharacterId) {
+                    this.charactersManager.setCurrentCharacterId(thisCharId);
+                }
+            }
+            resetAFO() {
+                if ($("#resp_Panel .resp_status").eq(0).hasClass("green")) {
+                    $("#resp_Panel .resp_button.resp_resp").click();
+                }
+                if ($("#pvp_Panel .pvp_status").eq(0).hasClass("green")) {
+                    $("#pvp_Panel .pvp_button.pvp_pvp").click();
+                }
+                if ($("#lpvm_Panel .lpvm_status").eq(0).hasClass("green")) {
+                    $("#lpvm_Panel .lpvm_button.lpvm_lpvm").click();
+                }
+                if ($("#res_Panel .res_status").eq(0).hasClass("green")) {
+                    $("#res_Panel .res_button.res_res").click();
+                }
+                if ($(".manage_autoExpeditions").eq(0).hasClass("kws_active_icon")) {
+                    $(".manage_autoExpeditions").click();
+                }
+            }
         }
-        const kws = new kwsv3();
+        const kws = new kwsv3(kwsLocalCharacters);
         GAME.komunikat2 = function (kom) {
             if (this.koms.indexOf(kom) == -1) {
                 if (this.komc > 50) this.komc = 40;
@@ -2246,7 +2158,7 @@ this.bindAlternativePilotButtons();
         let roll2 = false;
         let roll1 = false;
         let roll3 = false;
-        let version = '3.4.0';
+        let version = '3.4.1';
     }
     )
 }

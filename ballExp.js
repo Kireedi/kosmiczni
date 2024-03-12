@@ -1,4 +1,3 @@
-
 class ballExp {
     constructor() {
         this.expText = 'Exp do NEXT';
