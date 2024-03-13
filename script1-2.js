@@ -1300,7 +1300,7 @@ if (typeof GAME === 'undefined') { } else {
                 });
                 $("body").on("click", `[data-option="map_alternative_pilot"]`, () => {
                     this.createAlternativePilot();
-                    this.przeniesElement();
+                    przeniesElement();
                 });
                 $(document).keydown((event) => {
                     if (!$("input, textarea").is(":focus")) {
