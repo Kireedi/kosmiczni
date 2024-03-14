@@ -2,7 +2,6 @@ class KwsConnectionManager {
     constructor() {
         this.isRunning = false;
         console.log("KWS: new connection monitor created");
-        const reconnectionCookieName = "kwsreccharid";
         this.runConnectionMonitor();
     }
     setReconnectionCookie(reset = false) {
@@ -11,12 +10,12 @@ class KwsConnectionManager {
         let expires = "expires="+d.toUTCString();
         var cookieValue = reset ? '' : GAME.char_id;
         console.log("KWS: setting reconnection cookie = %s", cookieValue);
-        document.cookie = this.reconnectionCookieName + "=" + cookieValue + ";" + expires + ";path=/" + ";domain=kosmiczni.pl";
-        document.cookie = this.reconnectionCookieName + "=" + cookieValue + ";" + expires + ";path=/";
+        document.cookie = "kwsreccharid" + "=" + cookieValue + ";" + expires + ";path=/" + ";domain=kosmiczni.pl";
+        document.cookie = "kwsreccharid" + "=" + cookieValue + ";" + expires + ";path=/";
       }
       
       getReconnectionCookie() {
-        let name = this.reconnectionCookieName + "=";
+        let name = "kwsreccharid" + "=";
         let ca = document.cookie.split(';');
         for(let i = 0; i < ca.length; i++) {
           let c = ca[i];
@@ -75,12 +74,14 @@ class KwsConnectionManager {
             var disconnectedCharacterId = this.getReconnectionCookie();
             if (disconnectedCharacterId != '') {
                 console.log("KWS: attempt to login...");
-                if ($("#server_choose").is(":visible")) {
+                var allCharacters = [...$("li[data-option=select_char]")];
+                if (allCharacters.length != 0) {
+                    this.login();
+                } else if ($("#server_choose").is(":visible")) {
                     this.clickSecondLogin();
                 } else {
                     this.clickFirstLogin();
                 }
-                setTimeout(this.login, 1000);
             } else {
                 console.log("KWS: no login needed...");
             }
