@@ -82,6 +82,7 @@ function createControlButton() {
     controlButton.style.position = 'absolute';
     controlButton.style.top = '30px';
     controlButton.style.right = '10px';
+    controlButton.style.width = 'auto';    
     controlButton.addEventListener('click', () => {
         toggleScript();
         checkIfRefreshed(); 
