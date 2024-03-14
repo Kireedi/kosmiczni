@@ -6,7 +6,7 @@ let refreshInterval;
 function checkRefresh() {
     const currentTimestamp = Date.now();
 
-    if (currentTimestamp - lastTimestamp > 10000 && isRunning) {
+    if (currentTimestamp - lastTimestamp > 20000 && isRunning) {
        // Page refreshed or reloaded
         lastTimestamp = currentTimestamp;
 
