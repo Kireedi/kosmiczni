@@ -53,7 +53,7 @@ function toggleScript() {
 function updateButtonText() {
     const controlButton = document.getElementById('toggleScriptButton');
     if (controlButton) {
- 	controlButton.textContent = isRunning ? 'Reconnect Kody Off' : 'Reconnect Kody On';
+ 	controlButton.textContent = isRunning ? 'Off' : 'On';
     }
 }
 
@@ -77,11 +77,11 @@ if (storedState === 'true') {
 function createControlButton() {
     const controlButton = document.createElement('button');
     controlButton.id = 'toggleScriptButton';
+    controlButton.textContent = isRunning ? 'Off' : 'On';
     controlButton.className = 'btn_small_gold';
     controlButton.style.position = 'absolute';
     controlButton.style.top = '30px';
     controlButton.style.right = '10px';
-    controlButton.style.width = 'auto';    
     controlButton.addEventListener('click', () => {
         toggleScript();
         checkIfRefreshed(); 
