@@ -15,8 +15,8 @@ function loadScript(url) {
 }
 
 const scriptUrls = [
-    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/connectionManager.js",
-    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/charactersManager.js",
+    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/development/connectionManager.js",
+    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/development/charactersManager.js",
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballExp.js",
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballUpgrade.js",
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballReset.js",
