@@ -53,7 +53,7 @@ function toggleScript() {
 function updateButtonText() {
     const controlButton = document.getElementById('toggleScriptButton');
     if (controlButton) {
-        controlButton.textContent = isRunning ? 'Stop' : 'Start';
+ 	controlButton.textContent = isRunning ? 'Reconnect Kody Off' : 'Reconnect Kody On';
     }
 }
 
@@ -77,7 +77,7 @@ if (storedState === 'true') {
 function createControlButton() {
     const controlButton = document.createElement('button');
     controlButton.id = 'toggleScriptButton';
-    controlButton.textContent = isRunning ? 'Stop' : 'Start';
+    controlButton.textContent = isRunning ? 'Reconnect Kody Off' : 'Reconnect Kody On';
     controlButton.className = 'btn_small_gold';
     controlButton.style.position = 'absolute';
     controlButton.style.top = '30px';
