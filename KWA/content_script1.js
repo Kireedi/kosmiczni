@@ -21,7 +21,8 @@ const scriptUrls = [
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballUpgrade.js",
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballReset.js",
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballManager.js",
-    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/script1-2.js"
+    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/script1-2.js",
+    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/createaforeconect.js"    
 ];
 
 Promise.all(scriptUrls.map(loadScript))
