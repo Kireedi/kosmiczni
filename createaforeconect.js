@@ -6,7 +6,7 @@ let refreshInterval;
 function checkRefresh() {
     const currentTimestamp = Date.now();
 
-    if (currentTimestamp - lastTimestamp > 20000 && isRunning) {
+    if (currentTimestamp - lastTimestamp > 30000 && isRunning) {
        // Page refreshed or reloaded
         lastTimestamp = currentTimestamp;
 
@@ -61,7 +61,6 @@ function checkIfRefreshed() {
     if (isRunning) {
         const currentTimestamp = Date.now();
         if (currentTimestamp - lastTimestamp > 1000) {
-            console.log("Strona została odświeżona lub przeładowana!");
             lastTimestamp = currentTimestamp;
         }
     }
