@@ -7,7 +7,6 @@ function checkRefresh() {
     const currentTimestamp = Date.now();
 
     if (currentTimestamp - lastTimestamp > 30000 && isRunning) {
-       // Page refreshed or reloaded
         lastTimestamp = currentTimestamp;
 
         if (clickLink) {
@@ -53,7 +52,7 @@ function toggleScript() {
 function updateButtonText() {
     const controlButton = document.getElementById('toggleScriptButton');
     if (controlButton) {
- 	controlButton.textContent = isRunning ? 'Off' : 'On';
+        controlButton.textContent = isRunning ? 'Off' : 'On';
     }
 }
 
@@ -72,8 +71,9 @@ window.addEventListener('beforeunload', () => {
 
 const storedState = localStorage.getItem('isRunning');
 if (storedState === 'true') {
-    toggleScript();
+    isRunning = true; // Start the script automatically if it was running before the refresh
 }
+
 function createControlButton() {
     const controlButton = document.createElement('button');
     controlButton.id = 'toggleScriptButton';
@@ -88,5 +88,6 @@ function createControlButton() {
     });
     document.body.appendChild(controlButton);
 }
+
 setTimeout(createControlButton, 2000);
 
