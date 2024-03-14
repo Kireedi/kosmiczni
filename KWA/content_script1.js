@@ -4,7 +4,7 @@ function loadScript(url) {
             .then(response => response.text())
             .then(scriptContent => {
                 const script = document.createElement("script");
-                script.innerHTML = scriptContent;
+                script.text = scriptContent; 
                 document.body.appendChild(script);
                 resolve();
             })
@@ -16,9 +16,9 @@ function loadScript(url) {
 
 const scriptUrls = [
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/development/connectionManager.js",
-   "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/charactersManager.js",
-   "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballExp.js",
-   "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballUpgrade.js",
+    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/charactersManager.js",
+    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballExp.js",
+    "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballUpgrade.js",
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballReset.js",
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballManager.js",
     "https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/script1-2.js"
