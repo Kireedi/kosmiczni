@@ -77,12 +77,12 @@ if (storedState === 'true') {
 function createControlButton() {
     const controlButton = document.createElement('button');
     controlButton.id = 'toggleScriptButton';
-    controlButton.textContent = isRunning ? 'Reconnect Kody Off' : 'Reconnect Kody On';
+    controlButton.textContent = '';
     controlButton.className = 'btn_small_gold';
     controlButton.style.position = 'absolute';
     controlButton.style.top = '30px';
     controlButton.style.right = '10px';
-    controlButton.style.width = 'auto';    
+    controlButton.style.width = '200px';    
     controlButton.addEventListener('click', () => {
         toggleScript();
         checkIfRefreshed(); 
