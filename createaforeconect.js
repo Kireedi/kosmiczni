@@ -6,7 +6,7 @@ let refreshInterval;
 function checkRefresh() {
     const currentTimestamp = Date.now();
 
-    if (currentTimestamp - lastTimestamp > 30000 && isRunning) {
+    if (currentTimestamp - lastTimestamp > 15000 && isRunning) {
         lastTimestamp = currentTimestamp;
 
         if (clickLink) {
