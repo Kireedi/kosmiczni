@@ -12,6 +12,7 @@
     "link4":"https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/ballManager.js",
     "link5":"https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/script1-2.js",
     "link6":"https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/createaforeconect.js",    
+    "link7":"https://raw.githubusercontent.com/KWSforAll/KWSforAll/Koles/rpvp.js",    
  };
  
  const fetchPromises = Object.values(links).map(link => {
